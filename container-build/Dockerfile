@@ -1,15 +1,15 @@
-FROM registry.access.redhat.com/ubi8/ubi:8.0 ❶
+FROM registry.access.redhat.com/ubi8/ubi:8.0
 MAINTAINER Red Hat Training <training@redhat.com>
 
 # DocumentRoot for Apache
-ENV DOCROOT=/var/www/html ❷
+ENV DOCROOT=/var/www/html
 
-RUN yum install -y --no-docs --disableplugin=subscription-manager httpd && \ ❸
+RUN yum install -y --no-docs --disableplugin=subscription-manager httpd && \
     yum clean all --disableplugin=subscription-manager -y && \
     echo "Hello from the httpd-parent container!" > ${DOCROOT}/index.html
 
 # Allows child images to inject their own content into DocumentRoot
-ONBUILD COPY src/ ${DOCROOT}/  ❹
+ONBUILD COPY src/ ${DOCROOT}/ 
 
 EXPOSE 80
 
@@ -17,7 +17,7 @@ EXPOSE 80
 RUN rm -rf /run/httpd && mkdir /run/httpd
 
 # Run as the root user
-USER root ❺
+USER root
 
 # Launch httpd
 CMD /usr/sbin/httpd -DFOREGROUND

@@ -1,1 +1,1 @@
-FROM quay.io/redhattraining/http-parent
+FROM quay.io/redhattraining/httpd-parent
